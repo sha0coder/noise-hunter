@@ -223,11 +223,11 @@ def hook(indata, frames, time, status):
         return
 
     # min decibels filter
-    if args.dl and dbs*-1 < args.dl:
+    if args.dl and dbs < args.dl:
         return
 
     # max decibles filter
-    if args.dh and dbs*-1 > args.dh:
+    if args.dh and dbs > args.dh:
         return
 
     # register max freq
@@ -319,8 +319,8 @@ def main():
     parser.add_argument('-fh', type=float, default=0, help='bandpass highcut and filter by frequency range, ie: -fl 100 -fh 300')
     parser.add_argument('-efl', type=float, default=0, help='exclude frequency range, ie: -efl 1 -efh 100.01')
     parser.add_argument('-efh', type=float, default=0, help='exclude by frequency range, ie: -efl 1 -efh 100.01')
-    parser.add_argument('-dl', type=int, default=0, help='filter by decibels range, ie: -fl 30 -fh 20  (note that less is more because is negative)')
-    parser.add_argument('-dh', type=int, default=0, help='filter by decibels range, ie: -fl 30 -fh 20  (note that less is more because is negative)')
+    parser.add_argument('-dl', type=int, default=0, help='filter by decibels range, ie: -dl -30 -dh -20')
+    parser.add_argument('-dh', type=int, default=0, help='filter by decibels range, ie: -dl -30 -dh -20')
     #parser.add_argument('-edl', type=int, default=0, help='exclude by decibels range, ie: -efl 100 -fh 50  (note that less is more because is negative)')
     #parser.add_argument('-edh', type=int, default=0, help='exclude by decibels range, ie: -efl 100 -fh 50  (note that less is more because is negative)')
     parser.add_argument('-p', '--plot', default=False, action='store_true', help='Draw a plot to see the wave')

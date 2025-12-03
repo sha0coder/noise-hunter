@@ -12,8 +12,8 @@ options:
   -fh FH               bandpass highcut and filter by frequency range, ie: -fl 100 -fh 300
   -efl EFL             exclude frequency range, ie: -efl 1 -efh 100.01
   -efh EFH             exclude by frequency range, ie: -efl 1 -efh 100.01
-  -dl DL               filter by decibels range, ie: -fl 30 -fh 20 (note that less is more because is negative)
-  -dh DH               filter by decibels range, ie: -fl 30 -fh 20 (note that less is more because is negative)
+  -dl DL               filter by decibels range, ie: -dl -30 -dh -20
+  -dh DH               filter by decibels range, ie: -dl -30 -dh -20
   -p, --plot           Draw a plot to see the wave
   --save-csv SAVE_CSV  save metrics in csv: --save-csv file.csv
   -o, --out OUT        save filtered noise to wav when control+C is pressed: -o file.wav
