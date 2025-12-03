@@ -44,7 +44,10 @@ audio_q = queue.Queue(maxsize=10)
 window_size = 1024
 buffer = np.zeros(window_size)
 args = None
+mic_callibration = -42 # dBV/Pa (aprox.)
 metrics = []
+low_voice = 80 # Hz
+high_voice = 4000 # Hz
 
 known_freqs = {
     27.50: "music, A0",
@@ -172,7 +175,10 @@ def bandpass_filter(data, lowcut, highcut, fs, order=5):
 def db_to_amp(db):
     return 10**(db / 20)
 
-def amp_to_db(amp):
+def amp_to_db(amp, eps=1e-12):
+    return 20 * np.log10(max(amp, eps))
+
+def amp_to_db_prev(amp):
     return 20 * math.log10(amp)
 
 min_amp = db_to_amp(min_db)
@@ -218,6 +224,13 @@ def hook(indata, frames, time, status):
     min_amp = round(float(np.min(audio)), 4)
     dbs = round(amp_to_db(amp))
 
+    # check pressure level for warning the user
+    V_per_Pa = 10**(mic_callibration/20)  # factor lineal
+    pressure_rms = rms / V_per_Pa  # si 1.0 digital = 1 VFS
+    dB_SPL = round(float(20 * np.log10(pressure_rms / 20e-6)), 2)
+
+
+
     # discard silence
     if amp == 0:
         return
@@ -256,30 +269,50 @@ def hook(indata, frames, time, status):
             return
     '''
 
+    # it could be voice, also couldn't
+    voice = freq >= low_voice and freq <= high_voice
+
+    # presure damage alerts
+    tag = ''
+    if not voice:
+        if dbs >= -3 and dbs <= -2:
+            tag = 'WARNING HIGH DECIBEL '
+        elif dbs > -2 and dbs <= 0:
+            tag = 'ALERT HIGH SIGNAL '
+        elif dbs == 0:
+            tag = 'ALERT VERY HIGH SIGNAL!!!!! '
+        elif dbs > 50:
+            tag = 'far '
+    elif dbs > 50:
+        tag = 'far voice?'
 
     # fingerprint common sonunds
-    tag = ''
     if freq in known_freqs:
-        tag = known_freqs[freq]
+        tag += known_freqs[freq]
     elif freq < 20:
-        tag = 'non audible utra low'
+        tag += 'non audible utra low'
+    elif freq > 20000:
+        tag += 'non audible'
+    elif freq > 18000:
+        tag += 'only audible in young ears'
     elif freq == 115:
-        tag = 'engine'
-    elif freq > 80 and freq < 240 and dbs > -30:
-        tag = 'near voice or common nosie'
+        tag += 'engine'
+
+    if args.tag and not tag:
         return
 
-
     # otherwise we hunted a sound:
-    print(f'detected {freq}Hz {dbs}dBs rms:{rms} amp range:[{min_amp}, {max_amp}]  {tag}')
+    print(f'detected {freq}Hz {dbs}dBFS {dB_SPL}dBSPL rms:{rms} amp range:[{min_amp}, {max_amp}]  {tag}')
 
     if args.save_csv:
         metrics.append({
             'freq': freq,
-            'dbs': dbs,
+            'dbfs': dbs,
+            'dbspl': dB_SPL,
             'rms': rms,
             'min_amp': min_amp,
             'max_amp': max_amp,
+            'tag': tag,
         })
 
     if args.plot:
@@ -314,7 +347,7 @@ def main():
     global args
     parser = argparse.ArgumentParser()
     #parser.add_argument('-f', type=float, default=0, help='filter by frequency in Hz, ie -f 255')
-    #parser.add_argument('-d', type=int, default=0, help='filter by decibels, ie: -d 30  this is -30dBs')
+    #parser.add_argument('-d', type=int, default=0, help='filter by decibels, ie: -d 30  this is -30dB')
     parser.add_argument('-fl', type=float, default=0, help='bandpass lowcut and filter by frequency range, ie: -fl 100 -fh 300')
     parser.add_argument('-fh', type=float, default=0, help='bandpass highcut and filter by frequency range, ie: -fl 100 -fh 300')
     parser.add_argument('-efl', type=float, default=0, help='exclude frequency range, ie: -efl 1 -efh 100.01')
@@ -327,6 +360,8 @@ def main():
     parser.add_argument('--save-csv', type=str, default=None, help='save metrics in csv:  --save-csv file.csv  ')
     parser.add_argument('-o', '--out', type=str, default=None, help='save filtered noise to wav when control+C is pressed:  -o file.wav  ')
     parser.add_argument('-w', '--white', default=False, action='store_true', help='create white noise in loop, must be combined with a freq filter')
+    parser.add_argument('-t', '--tag', default=False, action='store_true', help='discard all the noises with no tag classification')
+
     args = parser.parse_args()
 
     if args.white: 

@@ -18,6 +18,7 @@ options:
   --save-csv SAVE_CSV  save metrics in csv: --save-csv file.csv
   -o, --out OUT        save filtered noise to wav when control+C is pressed: -o file.wav
   -w, --white          create white noise in loop, must be combined with a freq filter
+  -t, --tag            discard all the noises with no tag classification
 ```
 
 ## Examples
@@ -117,4 +118,18 @@ Normal sounds 7pm
 <img src="pics/dbs_chart.png" width="100%">
 
 
+## TAG system
 
+there is a tag system that try to recognize or classify the sound, not that it could generate FPs.
+
+This recognizes:
+    - musical exact notes
+    - voice
+    - far voice (but is going to be plenty of FPs)
+    - high non voice dbs alerts
+    - engines
+    - low freqs
+    - non audible
+    etc.
+
+This is always enabled but if you use -t or --tag flag, you will discard all the non-tagged sounds.
