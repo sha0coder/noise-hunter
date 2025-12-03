@@ -104,7 +104,8 @@ To create white noise select specific range, to fill the gaps and don't hear the
 
 ## TODO
 
-TODO: white noise only replicating saved metrics (test.csv)   (if it makes sense)
+- white noise only replicating saved metrics (test.csv)   (if it makes sense)
+- basic ANC (active noise cancelation)
 
 
 ## Some charts with libreoffice based on the csv
