@@ -43,17 +43,17 @@ detected 115.14Hz -48dBs rms:0.0013 amp range:[-0.0042, 0.0041]
 ```
 
 
-Once you narrow the filters to hunt the noise use -p or --plot to view it, and -o file.wav to save it.
+Once you narrow the filters to hunt the noise use -p or --plot to view it.
 
 ```bash
-❯❯❯ python3 noise-hunter.py -fl 200 -fh 1000 -p -o file.wav
+❯❯❯ python3 noise-hunter.py -fl 200 -fh 1000 --plot
 ```
 <img src=pics/pic.png width=100%>
 
-Also you can save metrics.
+Also you can save the wav and/or metrics.
 
 ```bash
-❯❯❯ python3 noise-hunter.py -fl 200 -fh 3835 --save-csv test.csv                                                                        main ✱
+❯❯❯ python3 noise-hunter.py -fl 200 -fh 3835 --save-csv test.csv -o file.wav
 detected 506.9Hz -57dBs rms:0.0006 amp range:[-0.001, 0.0014]
 detected 344.53Hz -52dBs rms:0.001 amp range:[-0.0026, 0.0017]
 detected 230.29Hz -51dBs rms:0.001 amp range:[-0.0027, 0.0021]
@@ -71,7 +71,7 @@ detected 506.9Hz -54dBs rms:0.001 amp range:[-0.0021, 0.0019]
 detected 852.76Hz -50dBs rms:0.0013 amp range:[-0.0033, 0.0025]
 ^C
 
-❯❯❯ cat test.csv                                                                                                                        main ✱
+❯❯❯ cat test.csv
 freq,dbs,rms,min_amp,max_amp
 506.9,-57,0.0006,-0.001,0.0014
 344.53,-52,0.001,-0.0026,0.0017
@@ -95,7 +95,6 @@ freq,dbs,rms,min_amp,max_amp
 ```
 
 The wav and the csv are written when you press ^C
-
 
 To create white noise select specific range, to fill the gaps and don't hear the target sound:
 
