@@ -54,3 +54,48 @@ Once you narrow the filters to hunt the noise use -p or --plot to view it, and -
 ```
 <img src=pics/pic.png width=100%>
 
+
+```bash
+❯❯❯ python3 noise-hunter.py -fl 200 -fh 3835 --save-csv test.csv                                                                        main ✱
+detected 506.9Hz -57dBs rms:0.0006 amp range:[-0.001, 0.0014]
+detected 344.53Hz -52dBs rms:0.001 amp range:[-0.0026, 0.0017]
+detected 230.29Hz -51dBs rms:0.001 amp range:[-0.0027, 0.0021]
+detected 230.29Hz -50dBs rms:0.001 amp range:[-0.0029, 0.0032]
+detected 544.44Hz -49dBs rms:0.0013 amp range:[-0.0036, 0.0032]
+detected 506.9Hz -55dBs rms:0.0009 amp range:[-0.0014, 0.0018]
+detected 501.14Hz -57dBs rms:0.0007 amp range:[-0.0014, 0.0014]
+detected 506.9Hz -52dBs rms:0.001 amp range:[-0.0026, 0.0014]
+detected 506.9Hz -53dBs rms:0.001 amp range:[-0.0023, 0.0019]
+detected 230.29Hz -49dBs rms:0.0014 amp range:[-0.0034, 0.0032]
+detected 230.29Hz -49dBs rms:0.0012 amp range:[-0.0029, 0.0034]
+detected 230.29Hz -49dBs rms:0.0014 amp range:[-0.0029, 0.0038]
+detected 501.14Hz -55dBs rms:0.0007 amp range:[-0.0013, 0.0018]
+detected 506.9Hz -54dBs rms:0.001 amp range:[-0.0021, 0.0019]
+detected 852.76Hz -50dBs rms:0.0013 amp range:[-0.0033, 0.0025]
+^C
+
+❯❯❯ cat test.csv                                                                                                                        main ✱
+freq,dbs,rms,min_amp,max_amp
+506.9,-57,0.0006,-0.001,0.0014
+344.53,-52,0.001,-0.0026,0.0017
+230.29,-51,0.001,-0.0027,0.0021
+230.29,-50,0.001,-0.0029,0.0032
+544.44,-49,0.0013,-0.0036,0.0032
+506.9,-55,0.0009,-0.0014,0.0018
+501.14,-57,0.0007,-0.0014,0.0014
+506.9,-52,0.001,-0.0026,0.0014
+506.9,-53,0.001,-0.0023,0.0019
+230.29,-49,0.0014,-0.0034,0.0032
+230.29,-49,0.0012,-0.0029,0.0034
+230.29,-49,0.0014,-0.0029,0.0038
+501.14,-55,0.0007,-0.0013,0.0018
+506.9,-54,0.001,-0.0021,0.0019
+852.76,-50,0.0013,-0.0033,0.0025
+230.29,-46,0.0014,-0.0025,0.0049
+501.14,-51,0.0013,-0.0029,0.0028
+1050.0,-51,0.0013,-0.0018,0.0027
+506.9,-51,0.0011,-0.0021,0.0027
+```
+
+The wav and the csv are written when you press ^C
+

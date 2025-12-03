@@ -16,6 +16,7 @@
 import os
 import time
 import math
+import csv
 import queue
 import argparse
 import threading
@@ -43,6 +44,7 @@ audio_q = queue.Queue(maxsize=10)
 window_size = 1024
 buffer = np.zeros(window_size)
 args = None
+metrics = []
 
 known_freqs = {
     27.50: "music, A0",
@@ -212,8 +214,8 @@ def hook(indata, frames, time, status):
 
     rms = round(float(np.sqrt(np.mean(audio**2))), 4)
     amp = np.max(np.abs(audio))
-    amp_max = round(float(np.max(audio)), 4)
-    amp_min = round(float(np.min(audio)), 4)
+    max_amp = round(float(np.max(audio)), 4)
+    min_amp = round(float(np.min(audio)), 4)
     dbs = round(amp_to_db(amp))
 
     # discard silence
@@ -269,7 +271,16 @@ def hook(indata, frames, time, status):
 
 
     # otherwise we hunted a sound:
-    print(f'detected {freq}Hz {dbs}dBs rms:{rms} amp range:[{amp_min}, {amp_max}]  {tag}')
+    print(f'detected {freq}Hz {dbs}dBs rms:{rms} amp range:[{min_amp}, {max_amp}]  {tag}')
+
+    if args.save_csv:
+        metrics.append({
+            'freq': freq,
+            'dbs': dbs,
+            'rms': rms,
+            'min_amp': min_amp,
+            'max_amp': max_amp,
+        })
 
     if args.plot:
         try:
@@ -313,6 +324,7 @@ def main():
     #parser.add_argument('-edl', type=int, default=0, help='exclude by decibels range, ie: -efl 100 -fh 50  (note that less is more because is negative)')
     #parser.add_argument('-edh', type=int, default=0, help='exclude by decibels range, ie: -efl 100 -fh 50  (note that less is more because is negative)')
     parser.add_argument('-p', '--plot', default=False, action='store_true', help='Draw a plot to see the wave')
+    parser.add_argument('--save-csv', type=str, default=None, help='save metrics in csv:  --save-csv file.csv  ')
     parser.add_argument('-o', '--out', type=str, default=None, help='save filtered noise to wav when control+C is pressed:  -o file.wav  ')
     parser.add_argument('-w', '--white', default=False, action='store_true', help='create white noise in loop, must be combined with a freq filter')
     args = parser.parse_args()
@@ -355,6 +367,11 @@ try:
     main()
 except KeyboardInterrupt:
     print(f'freq range: {min_freq} - {max_freq}')
+    if args.save_csv:
+        with open(args.save_csv, "w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=metrics[0].keys())
+            writer.writeheader()
+            writer.writerows(metrics)
     if args.out:
         data = np.concatenate(recorded)
         write(args.out, fs, (data * 32767).astype(np.int16))     
