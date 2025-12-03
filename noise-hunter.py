@@ -314,7 +314,7 @@ def main():
     #parser.add_argument('-edh', type=int, default=0, help='exclude by decibels range, ie: -efl 100 -fh 50  (note that less is more because is negative)')
     parser.add_argument('-p', '--plot', default=False, action='store_true', help='Draw a plot to see the wave')
     parser.add_argument('-o', '--out', type=str, default=None, help='save filtered noise to wav when control+C is pressed:  -o file.wav  ')
-    parser.add_argument('-w', '--white', default=False, action='store_true', help='create white noise in loop, mut be combined with a freq filter')
+    parser.add_argument('-w', '--white', default=False, action='store_true', help='create white noise in loop, must be combined with a freq filter')
     args = parser.parse_args()
 
     if args.white: 

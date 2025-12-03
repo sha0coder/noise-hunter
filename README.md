@@ -21,7 +21,7 @@ options:
                  more because is negative)
   -p, --plot     Draw a plot to see the wave
   -o, --out OUT  save filtered noise to wav: -o file.wav
-  -w, --white    create white noise in loop, mut be combined with a freq filter
+  -w, --white    create white noise in loop, must be combined with a freq filter
 ```
 
 ## Examples
