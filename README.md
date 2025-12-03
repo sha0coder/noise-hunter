@@ -54,6 +54,7 @@ Once you narrow the filters to hunt the noise use -p or --plot to view it, and -
 ```
 <img src=pics/pic.png width=100%>
 
+Also you can save metrics.
 
 ```bash
 ❯❯❯ python3 noise-hunter.py -fl 200 -fh 3835 --save-csv test.csv                                                                        main ✱
@@ -99,3 +100,11 @@ freq,dbs,rms,min_amp,max_amp
 
 The wav and the csv are written when you press ^C
 
+
+To create white noise select specific range:
+
+```bash
+❯❯❯ python3 noise-hunter.py -fl 200 -fh 3835 --white
+```
+
+TODO: white noise only replicating saved metrics (test.csv)
