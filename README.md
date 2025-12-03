@@ -118,14 +118,14 @@ Normal sounds 7pm
 there is a tag system that try to recognize or classify the sound, note that it could generate FPs.
 
 This recognizes:
-    - musical exact notes
-    - voice
-    - far voice (but is going to be plenty of FPs)
-    - high non voice dbs alerts
-    - engines
-    - low freqs
-    - non audible
-    etc.
+- musical exact notes
+- voice
+- far voice (but is going to be plenty of FPs)
+- high non voice dbs alerts
+- engines
+- low freqs
+- non audible
+- etc.
 
 This is always enabled but if you use -t or --tag flag, you will discard all the non-tagged sounds.
 
