@@ -101,10 +101,12 @@ freq,dbs,rms,min_amp,max_amp
 The wav and the csv are written when you press ^C
 
 
-To create white noise select specific range:
+To create white noise select specific range, to fill the gaps and don't hear the target sound:
 
 ```bash
 ❯❯❯ python3 noise-hunter.py -fl 200 -fh 3835 --white
 ```
 
-TODO: white noise only replicating saved metrics (test.csv)
+TODO: white noise only replicating saved metrics (test.csv)   (if it makes sense)
+
+
