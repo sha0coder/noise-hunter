@@ -4,24 +4,20 @@
 
 ```bash
 ❯❯❯ python3 noise-hunter.py --help
-usage: noise-hunter.py [-h] [-fl FL] [-fh FH] [-efl EFL] [-efh EFH] [-dl DL]
-                       [-dh DH] [-p] [-o OUT] [-w]
+usage: noise-hunter.py [-h] [-fl FL] [-fh FH] [-efl EFL] [-efh EFH] [-dl DL] [-dh DH] [-p] [--save-csv SAVE_CSV] [-o OUT] [-w]
 
 options:
-  -h, --help     show this help message and exit
-  -fl FL         bandpass lowcut and filter by frequency range, ie: -fl 100 -fh
-                 300
-  -fh FH         bandpass highcut and filter by frequency range, ie: -fl 100 -fh
-                 300
-  -efl EFL       exclude frequency range, ie: -efl 1 -efh 100.01
-  -efh EFH       exclude by frequency range, ie: -efl 1 -efh 100.01
-  -dl DL         filter by decibels range, ie: -fl 30 -fh 20 (note that less is
-                 more because is negative)
-  -dh DH         filter by decibels range, ie: -fl 30 -fh 20 (note that less is
-                 more because is negative)
-  -p, --plot     Draw a plot to see the wave
-  -o, --out OUT  save filtered noise to wav: -o file.wav
-  -w, --white    create white noise in loop, must be combined with a freq filter
+  -h, --help           show this help message and exit
+  -fl FL               bandpass lowcut and filter by frequency range, ie: -fl 100 -fh 300
+  -fh FH               bandpass highcut and filter by frequency range, ie: -fl 100 -fh 300
+  -efl EFL             exclude frequency range, ie: -efl 1 -efh 100.01
+  -efh EFH             exclude by frequency range, ie: -efl 1 -efh 100.01
+  -dl DL               filter by decibels range, ie: -fl 30 -fh 20 (note that less is more because is negative)
+  -dh DH               filter by decibels range, ie: -fl 30 -fh 20 (note that less is more because is negative)
+  -p, --plot           Draw a plot to see the wave
+  --save-csv SAVE_CSV  save metrics in csv: --save-csv file.csv
+  -o, --out OUT        save filtered noise to wav when control+C is pressed: -o file.wav
+  -w, --white          create white noise in loop, must be combined with a freq filter
 ```
 
 ## Examples
