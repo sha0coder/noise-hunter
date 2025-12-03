@@ -46,6 +46,9 @@ detected 1002.27Hz -54dBs rms:0.0009 amp range:[-0.002, 0.0021]
 detected 115.14Hz -48dBs rms:0.0013 amp range:[-0.0042, 0.0041]
 ```
 
+
+Once you narrow the filters to hunt the noise use -p or --plot to view it, and -o file.wav to save it.
+
 ```bash
 ❯❯❯ python3 noise-hunter.py -fl 200 -fh 1000 -p -o file.wav
 ```
