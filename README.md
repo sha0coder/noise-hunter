@@ -103,11 +103,6 @@ To create white noise select specific range, to fill the gaps and don't hear the
 ❯❯❯ python3 noise-hunter.py -fl 200 -fh 3835 --white
 ```
 
-## TODO
-
-- white noise only replicating saved metrics (test.csv)   (if it makes sense)
-- basic ANC (active noise cancelation)
-
 
 ## Some charts with libreoffice based on the csv
 
@@ -120,7 +115,7 @@ Normal sounds 7pm
 
 ## TAG system
 
-there is a tag system that try to recognize or classify the sound, not that it could generate FPs.
+there is a tag system that try to recognize or classify the sound, note that it could generate FPs.
 
 This recognizes:
     - musical exact notes
@@ -133,3 +128,9 @@ This recognizes:
     etc.
 
 This is always enabled but if you use -t or --tag flag, you will discard all the non-tagged sounds.
+
+## TODO
+
+- white noise only replicating saved metrics (test.csv)   (if it makes sense)
+- basic ANC (active noise cancelation)
+
