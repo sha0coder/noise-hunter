@@ -102,6 +102,18 @@ To create white noise select specific range, to fill the gaps and don't hear the
 ❯❯❯ python3 noise-hunter.py -fl 200 -fh 3835 --white
 ```
 
+## TODO
+
 TODO: white noise only replicating saved metrics (test.csv)   (if it makes sense)
+
+
+## Some charts with libreoffice based on the csv
+
+Normal sounds 7pm
+
+<img src="pics/freq_chart.png" width="100%">
+
+<img src="pics/dbs_chart.png" width="100%">
+
 
 
