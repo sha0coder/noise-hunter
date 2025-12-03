@@ -43,7 +43,7 @@ detected 115.14Hz -48dBs rms:0.0013 amp range:[-0.0042, 0.0041]
 ```
 
 
-Once you narrow the filters to hunt the noise use -p or --plot to view it.
+Once you narrow the filters to hunt the noise use -p or --plot to view the wave form.
 
 ```bash
 ❯❯❯ python3 noise-hunter.py -fl 200 -fh 1000 --plot
